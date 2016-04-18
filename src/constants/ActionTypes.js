@@ -1,0 +1,1 @@
+export const RESET_WALKERS = "RESET_WALKERS"
