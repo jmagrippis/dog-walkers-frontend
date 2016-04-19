@@ -4,7 +4,7 @@ import { lightGreen500, lightGreen700, orange500 } from "material-ui/styles/colo
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
 import getMuiTheme from "material-ui/styles/getMuiTheme"
 
-import Filters from "./../components/Filters"
+import { FiltersContainer } from "./../components/Filters"
 import Map from "./../components/Map"
 
 const styles = StyleSheet.create({
@@ -31,7 +31,7 @@ class DogWalkerApp extends Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className={css(styles.flexContainer)}>
           <div className={css(styles.halfWidth)}>
-            <Filters />
+            <FiltersContainer />
           </div>
           <div className={css(styles.halfWidth)}>
             <Map />
