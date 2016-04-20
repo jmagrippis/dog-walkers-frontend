@@ -6,7 +6,10 @@ import filters from "./../../src/reducers/filters"
 describe("filters reducer", () => {
 
   const currentDate = new Date()
-  const tomorrow = (new Date()).setDate(currentDate.getDate() + 1)
+  let tomorrow = new Date()
+  tomorrow.setDate(currentDate.getDate() + 1)
+  let pastTwo = new Date()
+  pastTwo.setHours(2)
 
   it("handles SET_FILTERS", () => {
     const initialState = Map()
@@ -15,8 +18,10 @@ describe("filters reducer", () => {
       filters: Map({
         postCode: "SW1A 1AA",
         availability: Map({
+          fromDateTime: currentDate,
           fromDate: currentDate,
           fromTime: currentDate,
+          toDateTime: tomorrow,
           toDate: tomorrow,
           toTime: tomorrow
         }),
@@ -29,8 +34,10 @@ describe("filters reducer", () => {
     expect(nextState).to.equal(fromJS({
       postCode: "SW1A 1AA",
       availability: {
+        fromDateTime: currentDate,
         fromDate: currentDate,
         fromTime: currentDate,
+        toDateTime: tomorrow,
         toDate: tomorrow,
         toTime: tomorrow
       },
@@ -45,8 +52,10 @@ describe("filters reducer", () => {
       filters: {
         postCode: "SW1A 1AB",
         availability: {
+          fromDateTime: currentDate,
           fromDate: currentDate,
           fromTime: currentDate,
+          toDateTime: currentDate,
           toDate: tomorrow,
           toTime: tomorrow
         },
@@ -59,8 +68,10 @@ describe("filters reducer", () => {
     expect(nextState).to.equal(fromJS({
       postCode: "SW1A 1AB",
       availability: {
+        fromDateTime: currentDate,
         fromDate: currentDate,
         fromTime: currentDate,
+        toDateTime: currentDate,
         toDate: tomorrow,
         toTime: tomorrow
       },
@@ -74,8 +85,10 @@ describe("filters reducer", () => {
       filters: {
         postCode: "SW1A 1AC",
         availability: {
+          fromDateTime: currentDate,
           fromDate: currentDate,
           fromTime: currentDate,
+          toDateTime: currentDate,
           toDate: tomorrow,
           toTime: tomorrow
         },
@@ -88,8 +101,10 @@ describe("filters reducer", () => {
     expect(nextState).to.equal(fromJS({
       postCode: "SW1A 1AC",
       availability: {
+        fromDateTime: currentDate,
         fromDate: currentDate,
         fromTime: currentDate,
+        toDateTime: currentDate,
         toDate: tomorrow,
         toTime: tomorrow
       },
@@ -108,8 +123,80 @@ describe("filters reducer", () => {
     expect(nextState).to.equal(fromJS({
       postCode: "SW1A 1AA",
       availability: {
+        fromDateTime: undefined,
         fromDate: undefined,
         fromTime: undefined,
+        toDateTime: undefined,
+        toDate: undefined,
+        toTime: undefined
+      },
+      experience: undefined
+    }))
+  })
+
+  it("handles SET_FROM_AVAILABILITY", () => {
+    const action = {
+      type: "SET_FROM_AVAILABILITY",
+      fromDate: currentDate,
+      fromTime: pastTwo
+    }
+
+    let expectedDateTime = new Date(currentDate.getTime())
+    expectedDateTime.setHours(pastTwo.getHours())
+
+    const nextState = filters(undefined, action)
+
+    expect(nextState).to.equal(fromJS({
+      postCode: undefined,
+      availability: {
+        fromDateTime: expectedDateTime,
+        fromDate: currentDate,
+        fromTime: pastTwo,
+        toDateTime: undefined,
+        toDate: undefined,
+        toTime: undefined
+      },
+      experience: undefined
+    }))
+  })
+
+  it("handles SET_FROM_AVAILABILITY without a fromTime", () => {
+    const action = {
+      type: "SET_FROM_AVAILABILITY",
+      fromDate: currentDate
+    }
+
+    const nextState = filters(undefined, action)
+
+    expect(nextState).to.equal(fromJS({
+      postCode: undefined,
+      availability: {
+        fromDateTime: currentDate,
+        fromDate: currentDate,
+        fromTime: currentDate,
+        toDateTime: undefined,
+        toDate: undefined,
+        toTime: undefined
+      },
+      experience: undefined
+    }))
+  })
+
+  it("handles SET_FROM_AVAILABILITY without a fromDate", () => {
+    const action = {
+      type: "SET_FROM_AVAILABILITY",
+      fromTime: currentDate
+    }
+
+    const nextState = filters(undefined, action)
+
+    expect(nextState).to.equal(fromJS({
+      postCode: undefined,
+      availability: {
+        fromDateTime: currentDate,
+        fromDate: currentDate,
+        fromTime: currentDate,
+        toDateTime: undefined,
         toDate: undefined,
         toTime: undefined
       },

@@ -1,34 +1,34 @@
-import React, { Component } from "react"
+import React, { PropTypes } from "react"
 import { css } from "aphrodite"
 import DatePicker from "material-ui/DatePicker/DatePicker"
 import TimePicker from "material-ui/TimePicker/TimePicker"
 import styles from "./../constants/Styles"
 
-class DateAndTimePickers extends Component {
-  render() {
-    return (
-      <div className={css(styles.flexContainerSpaceAround)}>
-        <DatePicker
-          minDate={new Date()}
-          hintText={this.props.prefix + " Date"}
-          mode="landscape"
-          value={this.props.dateValue}
-        />
-        <TimePicker
-          hintText={this.props.prefix + " Time"}
-          format="24hr"
-          pedantic={true}
-          value={this.props.timeValue}
-        />
-      </div>
-    )
-  }
-}
+const DateAndTimePickers = ({ prefix, dateValue, timeValue, onChange }) => (
+  <div className={css(styles.flexContainerSpaceAround)}>
+    <DatePicker
+      minDate={new Date()}
+      hintText={prefix + " Date"}
+      mode="landscape"
+      value={dateValue}
+      onChange={(_, newDate) => {
+        onChange(newDate, timeValue) }}
+    />
+    <TimePicker
+      hintText={prefix + " Time"}
+      format="24hr"
+      pedantic={true}
+      value={timeValue}
+      onChange={(_, newDate) => { onChange(dateValue, newDate) }}
+    />
+  </div>
+)
 
 DateAndTimePickers.propTypes = {
-  prefix: React.PropTypes.string.isRequired,
-  dateValue: React.PropTypes.object,
-  timeValue: React.PropTypes.object
+  prefix: PropTypes.string.isRequired,
+  dateValue: PropTypes.object,
+  timeValue: PropTypes.object,
+  onChange: PropTypes.func.isRequired
 }
 
 export default DateAndTimePickers

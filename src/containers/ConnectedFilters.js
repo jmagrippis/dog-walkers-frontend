@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import { setPostCode } from "../actions"
+import { setPostCode, setFromAvailability } from "../actions"
 
 import Filters from "../components/Filters"
 
@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onPostCodeChange: (postCode) => {
       dispatch(setPostCode(postCode))
+    },
+    onFromAvailabilityChange: (fromDate, fromTime) => {
+      dispatch(setFromAvailability(fromDate, fromTime))
     }
   }
 }
