@@ -97,4 +97,24 @@ describe("filters reducer", () => {
     }))
   })
 
+  it("handles SET_POST_CODE", () => {
+    const action = {
+      type: "SET_POST_CODE",
+      postCode: "SW1A 1AA"
+    }
+
+    const nextState = filters(undefined, action)
+
+    expect(nextState).to.equal(fromJS({
+      postCode: "SW1A 1AA",
+      availability: {
+        fromDate: undefined,
+        fromTime: undefined,
+        toDate: undefined,
+        toTime: undefined
+      },
+      experience: undefined
+    }))
+  })
+
 })

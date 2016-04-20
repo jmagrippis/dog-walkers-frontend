@@ -1,5 +1,4 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
+import React, { PropTypes } from "react"
 import { StyleSheet, css } from "aphrodite"
 import Paper from "material-ui/Paper"
 import RaisedButton from "material-ui/RaisedButton"
@@ -22,56 +21,41 @@ const styles = StyleSheet.create({
   }
 })
 
-const marginless = {
-  marginTop: 0
-}
-
-export class Filters extends Component {
-  render() {
-    return (
-      <Paper zDepth={1} className={css(styles.padded)}>
-        <aside className={css(styles.flexContainerColumn)}>
-          <TextField
-            hintText="SW1A 1AA"
-            floatingLabelText="Post Code"
-            value={this.props.postCode}
-          />
-          <DateAndTimePickers
-            prefix="From"
-            dateValue={this.props.availability.fromDate}
-            timeValue={this.props.availability.fromTime}
-          />
-          <DateAndTimePickers
-            prefix="To"
-            dateValue={this.props.availability.toDate}
-            timeValue={this.props.availability.toTime}
-          />
-          <TextField
-            hintText="in years"
-            floatingLabelText="Experience"
-            type="number"
-            style={marginless}
-            value={this.props.experience}
-          />
-          <RaisedButton label="Submit" primary={true} className={css(styles.marginTop)} />
-        </aside>
-      </Paper>
-    )
-  }
-}
+const Filters = ({ postCode, onPostCodeChange, availability, experience }) => (
+  <Paper zDepth={1} className={css(styles.padded)}>
+    <aside className={css(styles.flexContainerColumn)}>
+      <TextField
+        hintText="SW1A 1AA"
+        floatingLabelText="Post Code"
+        value={postCode}
+        onChange={(event) => { onPostCodeChange(event.target.value) }}
+      />
+      <DateAndTimePickers
+        prefix="From"
+        dateValue={availability.fromDate}
+        timeValue={availability.fromTime}
+      />
+      <DateAndTimePickers
+        prefix="To"
+        dateValue={availability.toDate}
+        timeValue={availability.toTime}
+      />
+      <TextField
+        hintText="in years"
+        floatingLabelText="Experience"
+        type="number"
+        value={experience}
+      />
+      <RaisedButton label="Submit" primary={true} className={css(styles.marginTop)} />
+    </aside>
+  </Paper>
+  )
 
 Filters.propTypes = {
-  postCode: React.PropTypes.string,
-  availability: React.PropTypes.object,
-  experience: React.PropTypes.number
+  postCode: PropTypes.string,
+  onPostCodeChange: PropTypes.func.isRequired,
+  availability: PropTypes.object,
+  experience: PropTypes.number
 }
 
-function mapStateToProps(state) {
-  return {
-    postCode: state.filters.get("postCode"),
-    availability: state.filters.get("availability").toJS(),
-    experience: state.filters.get("experience")
-  }
-}
-
-export const FiltersContainer = connect(mapStateToProps)(Filters)
+export default Filters

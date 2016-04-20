@@ -1,1 +1,3 @@
+export const SET_FILTERS = "SET_FILTERS"
+export const SET_POST_CODE = "SET_POST_CODE"
 export const RESET_WALKERS = "RESET_WALKERS"
