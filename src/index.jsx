@@ -26,7 +26,7 @@ if (module.hot) {
         component={require("./containers/Root").default}
         props={{ store }}
       />,
-      document.getElementById("root")
+    document.getElementById("app")
     )
   })
 }

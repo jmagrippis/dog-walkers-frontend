@@ -2,13 +2,17 @@ import React, { Component } from "react"
 import { Provider } from "react-redux"
 
 import DogWalkerApp from "./DogWalkerApp"
+import DevTools from "./DevTools"
 
 export default class Root extends Component {
   render() {
     const { store } = this.props
     return (
       <Provider store={store}>
-        <DogWalkerApp />
+        <div>
+          <DogWalkerApp />
+          <DevTools />
+        </div>
       </Provider>
     )
   }
