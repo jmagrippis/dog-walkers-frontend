@@ -204,4 +204,30 @@ describe("filters reducer", () => {
     }))
   })
 
+  it("handles SET_TO_AVAILABILITY", () => {
+    const action = {
+      type: "SET_TO_AVAILABILITY",
+      toDate: currentDate,
+      toTime: pastTwo
+    }
+
+    let expectedDateTime = new Date(currentDate.getTime())
+    expectedDateTime.setHours(pastTwo.getHours())
+
+    const nextState = filters(undefined, action)
+
+    expect(nextState).to.equal(fromJS({
+      postCode: undefined,
+      availability: {
+        fromDateTime: undefined,
+        fromDate: undefined,
+        fromTime: undefined,
+        toDateTime: expectedDateTime,
+        toDate: currentDate,
+        toTime: pastTwo
+      },
+      experience: undefined
+    }))
+  })
+
 })

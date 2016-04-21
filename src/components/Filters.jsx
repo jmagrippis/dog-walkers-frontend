@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 })
 
 const Filters = ({ postCode, onPostCodeChange, availability,
-  onFromAvailabilityChange, experience }) => (
+  onFromAvailabilityChange, onToAvailabilityChange, experience }) => (
   <Paper zDepth={1} className={css(styles.padded)}>
     <aside className={css(styles.flexContainerColumn)}>
       <TextField
@@ -41,7 +41,7 @@ const Filters = ({ postCode, onPostCodeChange, availability,
         prefix="To"
         dateValue={availability.toDate}
         timeValue={availability.toTime}
-        onChange={onFromAvailabilityChange}
+        onChange={onToAvailabilityChange}
       />
       <TextField
         hintText="in years"
@@ -58,6 +58,7 @@ Filters.propTypes = {
   postCode: PropTypes.string,
   onPostCodeChange: PropTypes.func.isRequired,
   onFromAvailabilityChange: PropTypes.func.isRequired,
+  onToAvailabilityChange: PropTypes.func.isRequired,
   availability: PropTypes.object,
   experience: PropTypes.number
 }
