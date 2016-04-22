@@ -22,13 +22,14 @@ const styles = StyleSheet.create({
 })
 
 const Filters = ({ postCode, onPostCodeChange, availability,
-  onFromAvailabilityChange, onToAvailabilityChange, experience }) => (
+  onFromAvailabilityChange, onToAvailabilityChange, experience,
+  onExperienceChange }) => (
   <Paper zDepth={1} className={css(styles.padded)}>
     <aside className={css(styles.flexContainerColumn)}>
       <TextField
         hintText="SW1A 1AA"
         floatingLabelText="Post Code"
-        value={postCode}
+        value={typeof postCode === "undefined" ? "" : postCode}
         onChange={(event) => { onPostCodeChange(event.target.value) }}
       />
       <DateAndTimePickers
@@ -47,9 +48,15 @@ const Filters = ({ postCode, onPostCodeChange, availability,
         hintText="in years"
         floatingLabelText="Experience"
         type="number"
-        value={experience}
+        value={typeof experience === "undefined" ? "" : experience}
+        onChange={(event) => { onExperienceChange(event.target.value) }}
       />
-      <RaisedButton label="Submit" primary={true} className={css(styles.marginTop)} />
+      <RaisedButton
+        label="Submit"
+        primary={true}
+        disabled={typeof postCode === "undefined"}
+        className={css(styles.marginTop)}
+      />
     </aside>
   </Paper>
 )
@@ -57,10 +64,11 @@ const Filters = ({ postCode, onPostCodeChange, availability,
 Filters.propTypes = {
   postCode: PropTypes.string,
   onPostCodeChange: PropTypes.func.isRequired,
+  availability: PropTypes.object,
   onFromAvailabilityChange: PropTypes.func.isRequired,
   onToAvailabilityChange: PropTypes.func.isRequired,
-  availability: PropTypes.object,
-  experience: PropTypes.number
+  experience: PropTypes.number,
+  onExperienceChange: PropTypes.func.isRequired
 }
 
 export default Filters

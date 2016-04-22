@@ -230,4 +230,70 @@ describe("filters reducer", () => {
     }))
   })
 
+  it("handles SET_EXPERIENCE", () => {
+    const action = {
+      type: "SET_EXPERIENCE",
+      experience: 3
+    }
+
+    const nextState = filters(undefined, action)
+
+    expect(nextState).to.equal(fromJS({
+      postCode: undefined,
+      availability: {
+        fromDateTime: undefined,
+        fromDate: undefined,
+        fromTime: undefined,
+        toDateTime: undefined,
+        toDate: undefined,
+        toTime: undefined
+      },
+      experience: 3
+    }))
+  })
+
+  it("SET_EXPERIENCE early outs on NaN", () => {
+    const action = {
+      type: "SET_EXPERIENCE",
+      experience: "hello"
+    }
+
+    const nextState = filters(undefined, action)
+
+    expect(nextState).to.equal(fromJS({
+      postCode: undefined,
+      availability: {
+        fromDateTime: undefined,
+        fromDate: undefined,
+        fromTime: undefined,
+        toDateTime: undefined,
+        toDate: undefined,
+        toTime: undefined
+      },
+      experience: undefined
+    }))
+  })
+
+  it("SET_EXPERIENCE takes negative numbers as 0", () => {
+    const action = {
+      type: "SET_EXPERIENCE",
+      experience: -1
+    }
+
+    const nextState = filters(undefined, action)
+
+    expect(nextState).to.equal(fromJS({
+      postCode: undefined,
+      availability: {
+        fromDateTime: undefined,
+        fromDate: undefined,
+        fromTime: undefined,
+        toDateTime: undefined,
+        toDate: undefined,
+        toTime: undefined
+      },
+      experience: 0
+    }))
+  })
+
 })

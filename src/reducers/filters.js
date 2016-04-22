@@ -1,5 +1,5 @@
-import { SET_FILTERS, SET_POST_CODE, SET_FROM_AVAILABILITY,
-  SET_TO_AVAILABILITY } from "../constants/ActionTypes"
+import { SET_FILTERS, SET_POST_CODE, SET_FROM_AVAILABILITY, SET_TO_AVAILABILITY,
+  SET_EXPERIENCE } from "../constants/ActionTypes"
 import { Map } from "immutable"
 
 function setState(state, newState) {
@@ -23,14 +23,16 @@ function setFromAvailability(state, fromDate, fromTime) {
     newDateTime.setHours(fromTime.getHours())
     newDateTime.setMinutes(fromTime.getMinutes())
   }
+
   let availability = state.get("availability")
+  let resetToDate = availability.get("toDateTime") < newDateTime
   let newAvailability = Map({
     fromDateTime: newDateTime,
     fromDate: fromDate,
     fromTime: fromTime,
-    toDateTime: availability.get("toDateTime"),
-    toDate: availability.get("toDate"),
-    toTime: availability.get("toTime")
+    toDateTime: resetToDate ? undefined : availability.get("toDateTime"),
+    toDate: resetToDate ? undefined : availability.get("toDate"),
+    toTime: resetToDate ? undefined : availability.get("toTime")
   })
   return state.set("availability", newAvailability)
 }
@@ -60,6 +62,17 @@ function setToAvailability(state, toDate, toTime) {
   return state.set("availability", newAvailability)
 }
 
+function setExperience(state, experience) {
+  if (typeof experience === "undefined") {
+    return state.set("experience", parsedExperience)
+  }
+  let parsedExperience = parseInt(experience)
+  if (isNaN(parsedExperience)) return state
+
+  parsedExperience = parsedExperience < 0 ? 0 : parsedExperience
+  return state.set("experience", parsedExperience)
+}
+
 const defaultState = Map({
   postCode: undefined,
   availability: Map({
@@ -83,6 +96,8 @@ export default function(state = defaultState, action) {
       return setFromAvailability(state, action.fromDate, action.fromTime)
     case SET_TO_AVAILABILITY:
       return setToAvailability(state, action.toDate, action.toTime)
+    case SET_EXPERIENCE:
+      return setExperience(state, action.experience)
   }
   return state
 }

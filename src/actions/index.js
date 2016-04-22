@@ -1,5 +1,5 @@
-import { SET_POST_CODE, SET_FROM_AVAILABILITY,
-  SET_TO_AVAILABILITY } from "../constants/ActionTypes"
+import { SET_POST_CODE, SET_FROM_AVAILABILITY, SET_TO_AVAILABILITY,
+  SET_EXPERIENCE } from "../constants/ActionTypes"
 
 export const setPostCode = (postCode) => {
   return {
@@ -21,5 +21,12 @@ export const setToAvailability = (toDate, toTime ) => {
     type: SET_TO_AVAILABILITY,
     toDate,
     toTime
+  }
+}
+
+export const setExperience = (experience) => {
+  return {
+    type: SET_EXPERIENCE,
+    experience
   }
 }

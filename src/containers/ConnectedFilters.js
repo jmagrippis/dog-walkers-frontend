@@ -1,5 +1,6 @@
 import { connect } from "react-redux"
-import { setPostCode, setFromAvailability, setToAvailability } from "../actions"
+import { setPostCode, setFromAvailability, setToAvailability,
+  setExperience } from "../actions"
 
 import Filters from "../components/Filters"
 
@@ -21,6 +22,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onToAvailabilityChange: (toDate, toTime) => {
       dispatch(setToAvailability(toDate, toTime))
+    },
+    onExperienceChange: (experience) => {
+      dispatch(setExperience(experience))
     }
   }
 }
