@@ -41,7 +41,8 @@ describe("filters reducer", () => {
         toDate: tomorrow,
         toTime: tomorrow
       },
-      experience: 2
+      experience: 2,
+      submittable: true
     }))
   })
 
@@ -75,7 +76,8 @@ describe("filters reducer", () => {
         toDate: tomorrow,
         toTime: tomorrow
       },
-      experience: 3
+      experience: 3,
+      submittable: true
     }))
   })
 
@@ -108,7 +110,8 @@ describe("filters reducer", () => {
         toDate: tomorrow,
         toTime: tomorrow
       },
-      experience: 10
+      experience: 10,
+      submittable: true
     }))
   })
 
@@ -130,7 +133,31 @@ describe("filters reducer", () => {
         toDate: undefined,
         toTime: undefined
       },
-      experience: undefined
+      experience: undefined,
+      submittable: true
+    }))
+  })
+
+  it("SET_POST_CODE allows submit if postCode is over 4 characters", () => {
+    const action = {
+      type: "SET_POST_CODE",
+      postCode: "SW1A"
+    }
+
+    const nextState = filters(undefined, action)
+
+    expect(nextState).to.equal(fromJS({
+      postCode: "SW1A",
+      availability: {
+        fromDateTime: undefined,
+        fromDate: undefined,
+        fromTime: undefined,
+        toDateTime: undefined,
+        toDate: undefined,
+        toTime: undefined
+      },
+      experience: undefined,
+      submittable: false
     }))
   })
 
@@ -156,7 +183,8 @@ describe("filters reducer", () => {
         toDate: undefined,
         toTime: undefined
       },
-      experience: undefined
+      experience: undefined,
+      submittable: false
     }))
   })
 
@@ -178,7 +206,8 @@ describe("filters reducer", () => {
         toDate: undefined,
         toTime: undefined
       },
-      experience: undefined
+      experience: undefined,
+      submittable: false
     }))
   })
 
@@ -200,7 +229,8 @@ describe("filters reducer", () => {
         toDate: undefined,
         toTime: undefined
       },
-      experience: undefined
+      experience: undefined,
+      submittable: false
     }))
   })
 
@@ -226,7 +256,8 @@ describe("filters reducer", () => {
         toDate: currentDate,
         toTime: pastTwo
       },
-      experience: undefined
+      experience: undefined,
+      submittable: false
     }))
   })
 
@@ -248,7 +279,8 @@ describe("filters reducer", () => {
         toDate: undefined,
         toTime: undefined
       },
-      experience: 3
+      experience: 3,
+      submittable: false
     }))
   })
 
@@ -270,7 +302,8 @@ describe("filters reducer", () => {
         toDate: undefined,
         toTime: undefined
       },
-      experience: undefined
+      experience: undefined,
+      submittable: false
     }))
   })
 
@@ -292,7 +325,8 @@ describe("filters reducer", () => {
         toDate: undefined,
         toTime: undefined
       },
-      experience: 0
+      experience: 0,
+      submittable: false
     }))
   })
 

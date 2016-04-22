@@ -8,7 +8,8 @@ const mapStateToProps = (state) => {
   return {
     postCode: state.filters.get("postCode"),
     availability: state.filters.get("availability").toJS(),
-    experience: state.filters.get("experience")
+    experience: state.filters.get("experience"),
+    submittable: state.filters.get("submittable")
   }
 }
 

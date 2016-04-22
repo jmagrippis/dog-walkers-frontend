@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 
 const Filters = ({ postCode, onPostCodeChange, availability,
   onFromAvailabilityChange, onToAvailabilityChange, experience,
-  onExperienceChange }) => (
+  onExperienceChange, submittable }) => (
   <Paper zDepth={1} className={css(styles.padded)}>
     <aside className={css(styles.flexContainerColumn)}>
       <TextField
@@ -54,7 +54,7 @@ const Filters = ({ postCode, onPostCodeChange, availability,
       <RaisedButton
         label="Submit"
         primary={true}
-        disabled={typeof postCode === "undefined"}
+        disabled={!submittable}
         className={css(styles.marginTop)}
       />
     </aside>
@@ -68,7 +68,8 @@ Filters.propTypes = {
   onFromAvailabilityChange: PropTypes.func.isRequired,
   onToAvailabilityChange: PropTypes.func.isRequired,
   experience: PropTypes.number,
-  onExperienceChange: PropTypes.func.isRequired
+  onExperienceChange: PropTypes.func.isRequired,
+  submittable: PropTypes.bool.isRequired
 }
 
 export default Filters

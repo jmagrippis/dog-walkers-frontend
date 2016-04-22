@@ -2,12 +2,19 @@ import { SET_FILTERS, SET_POST_CODE, SET_FROM_AVAILABILITY, SET_TO_AVAILABILITY,
   SET_EXPERIENCE } from "../constants/ActionTypes"
 import { Map } from "immutable"
 
-function setState(state, newState) {
-  return state.merge(newState)
+function setFilters(state, newFilters) {
+  const newState = state.merge(newFilters)
+  let submittable = typeof newState.get("postCode") !== "undefined" &&
+  newState.get("postCode").length > 4
+  return state.merge(newFilters).set("submittable",  submittable)
 }
 
 function setPostCode(state, postCode) {
-  return state.set("postCode", postCode)
+
+  return state.merge({
+    postCode,
+    submittable: postCode.length > 4
+  })
 }
 
 function setFromAvailability(state, fromDate, fromTime) {
@@ -83,13 +90,14 @@ const defaultState = Map({
     toDate: undefined,
     toTime: undefined
   }),
-  experience: undefined
+  experience: undefined,
+  submittable: false
 })
 
 export default function(state = defaultState, action) {
   switch (action.type) {
     case SET_FILTERS:
-      return setState(state, action.filters)
+      return setFilters(state, action.filters)
     case SET_POST_CODE:
       return setPostCode(state, action.postCode)
     case SET_FROM_AVAILABILITY:
