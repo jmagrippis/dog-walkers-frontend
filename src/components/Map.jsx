@@ -4,7 +4,7 @@ import GoogleMap from "google-map-react"
 import WalkerMarker from "./WalkerMarker"
 import { GOOGLE_MAPS_JS_API_KEY } from "../constants/Keys"
 
-const Map = ({ center, walkers }) => (
+const Map = ({ center, walkers, expandWalker }) => (
     <div style={{height: 396}}>
       {walkers.count() < 1 ? (
         <GoogleMap
@@ -18,8 +18,9 @@ const Map = ({ center, walkers }) => (
           bootstrapURLKeys={{key: GOOGLE_MAPS_JS_API_KEY }}
           center={center}
           defaultZoom={14}>
-          {walkers.map((walker) => (
+          {walkers.map((walker, index) => (
             <WalkerMarker
+              index={index}
               key={walker.get("id")}
               lat={walker.get("location").lat}
               lng={walker.get("location").lng}
@@ -32,7 +33,8 @@ const Map = ({ center, walkers }) => (
   )
 Map.propTypes = {
   center: PropTypes.object.isRequired,
-  walkers: PropTypes.object.isRequired
+  walkers: PropTypes.object.isRequired,
+  expandWalker: PropTypes.func.isRequired
 }
 
 export default Map

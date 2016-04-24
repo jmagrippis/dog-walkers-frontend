@@ -15,6 +15,8 @@ To run the app `git clone` and `cd` into the repository and run `npm install`.
 - [Immutable] for ensured immutability
 - [Webpack] for asset compilation and [Babel] for the ES2015 and ES7 features of tomorrow, today.
 - [Mocha] and [Chai] for testing.
+- [Faker] for test user flavour and randomness
+- [lodash] for a couple efficient helper methods
 
 [React]: https://facebook.github.io/react/ "Fast and efficient views"
 [Aphrodite]: https://github.com/Khan/aphrodite "It's inline styles, but they work!"
@@ -26,3 +28,5 @@ To run the app `git clone` and `cd` into the repository and run `npm install`.
 [Babel]: https://babeljs.io/ "It transforms your JavaScript"
 [Mocha]: https://mochajs.org/ "Feature-rich JavaScript test framework"
 [Chai]: http://chaijs.com/ "BDD / TDD assertion library"
+[Faker]: https://github.com/Marak/faker.js "Generate massive amounts of fake data"
+[lodash]: https://lodash.com/ "A modern JavaScript utility library delivering modularity, performance, & extras"

@@ -1,6 +1,7 @@
 import { SET_POST_CODE, SET_FROM_AVAILABILITY, SET_TO_AVAILABILITY,
   SET_EXPERIENCE, SET_CENTER, RESET_NEAREST_WALKERS,
-  ADD_NEAREST_WALKERS } from "../constants/ActionTypes"
+  ADD_NEAREST_WALKERS, TOGGLE_WALKER } from "../constants/ActionTypes"
+import { randomUsers } from "../../test/data/Users"
 
 export const setPostCode = (postCode) => {
   return {
@@ -52,6 +53,13 @@ export const addNearestWalkers = (nearest) => {
   }
 }
 
+export const toggleWalker = (key) => {
+  return {
+    type: TOGGLE_WALKER,
+    key
+  }
+}
+
 const geocode = (postCode) => {
   // TODO: This should actually hit the geocoding API
   let payload = {
@@ -75,36 +83,8 @@ const fetchNearestWalkers = (location, availabilityFrom, availabilityTo, experie
   // possibly fetching from /api/v1/walkers/nearest/{location}?availabilityFrom={availability.from}&availabilityTo={availability.to}experience={experience}
   // for now, we just return some fake walkers at random
   return Promise.resolve({
-    walkers: [
-      {
-        id: 1,
-        location: {
-          lat: location.lat,
-          lng: location.lng
-        },
-        avatar: "avatars/1.png",
-        bio: "The most casual dog walker."
-      },
-      {
-        id: 2,
-        location: {
-          lat: location.lat + 0.01,
-          lng: location.lng - 0.005
-        },
-        avatar: "avatars/2.png",
-        bio: "The best dog walker."
-      },
-      {
-        id: 3,
-        location: {
-          lat: location.lat - 0.0075,
-          lng: location.lng + 0.002
-        },
-        avatar: "avatars/3.png",
-        bio: "The worst dog walker."
-      }
-    ],
-    experience: {
+    walkers: randomUsers(5, location, experience),
+    request: {
       location,
       availability: {
         from: availabilityFrom,

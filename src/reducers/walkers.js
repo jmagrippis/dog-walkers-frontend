@@ -1,7 +1,7 @@
 import { List, Map } from "immutable"
 
-import { SET_CENTER, RESET_NEAREST_WALKERS,
-  ADD_NEAREST_WALKERS } from "../constants/ActionTypes"
+import { SET_CENTER, RESET_NEAREST_WALKERS, ADD_NEAREST_WALKERS,
+  TOGGLE_WALKER } from "../constants/ActionTypes"
 
 const defaultState = Map({
   center: Map({
@@ -21,7 +21,16 @@ export default function(state = defaultState, action) {
     case ADD_NEAREST_WALKERS:
       return state.set(
         "nearest",
-        state.get("nearest").concat(action.nearest.map(walker => Map(walker)))
+        state.get("nearest").concat(action.nearest.map(
+          walker => Map(walker).set("expanded", false)
+        ))
+      )
+    case TOGGLE_WALKER:
+      return state.set(
+        "nearest",
+        state.get("nearest").update(action.key, (walker) => (
+          walker.set("expanded", !walker.get("expanded"))
+        ))
       )
   }
   return state
