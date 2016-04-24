@@ -1,6 +1,7 @@
+import { Map } from "immutable"
+
 import { SET_FILTERS, SET_POST_CODE, SET_FROM_AVAILABILITY, SET_TO_AVAILABILITY,
   SET_EXPERIENCE } from "../constants/ActionTypes"
-import { Map } from "immutable"
 
 function setFilters(state, newFilters) {
   const newState = state.merge(newFilters)

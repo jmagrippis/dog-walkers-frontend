@@ -5,7 +5,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
 import getMuiTheme from "material-ui/styles/getMuiTheme"
 
 import ConnectedFilters from "./ConnectedFilters"
-import Map from "./../components/Map"
+import ConnectedMap from "./../containers/ConnectedMap"
 
 const styles = StyleSheet.create({
   flexContainer: {
@@ -34,7 +34,7 @@ class DogWalkerApp extends Component {
             <ConnectedFilters />
           </div>
           <div className={css(styles.halfWidth)}>
-            <Map />
+            <ConnectedMap />
           </div>
         </div>
       </MuiThemeProvider>
