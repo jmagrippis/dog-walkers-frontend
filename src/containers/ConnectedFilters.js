@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import { setPostCode, setFromAvailability, setToAvailability,
-  setExperience } from "../actions"
+  setExperience, fetchForFilters } from "../actions"
 
 import Filters from "../components/Filters"
 
@@ -26,6 +26,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onExperienceChange: (experience) => {
       dispatch(setExperience(experience))
+    },
+    onFormSubmit: (postCode, availabilityFrom, availabilityTo, experience) => {
+      dispatch(fetchForFilters(postCode, availabilityFrom, availabilityTo, experience))
     }
   }
 }

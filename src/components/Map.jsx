@@ -21,8 +21,9 @@ const Map = ({ center, walkers }) => (
           {walkers.map((walker) => (
             <WalkerMarker
               key={walker.get("id")}
-              lat={walker.get("location").get("lat")}
-              lng={walker.get("location").get("lng")}
+              lat={walker.get("location").lat}
+              lng={walker.get("location").lng}
+              avatar={walker.get("avatar")}
             />
           ))}
         </GoogleMap>
