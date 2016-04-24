@@ -4,7 +4,7 @@ import Map from "../components/Map"
 
 const mapStateToProps = (state) => {
   return {
-    center: state.walkers.get("center")
+    center: state.walkers.get("center").toJS()
   }
 }
 
