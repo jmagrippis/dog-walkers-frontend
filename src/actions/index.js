@@ -2,6 +2,7 @@ import { SET_POST_CODE, SET_FROM_AVAILABILITY, SET_TO_AVAILABILITY,
   SET_EXPERIENCE, SET_CENTER, RESET_NEAREST_WALKERS,
   ADD_NEAREST_WALKERS, TOGGLE_WALKER } from "../constants/ActionTypes"
 import { randomUsers } from "../../test/data/Users"
+import { randomLatLongInLondon } from "../../test/data/LatLong"
 
 export const setPostCode = (postCode) => {
   return {
@@ -63,15 +64,13 @@ export const toggleWalker = (key) => {
 const geocode = (postCode) => {
   // TODO: This should actually hit the geocoding API
   let payload = {
-    address: postCode
+    address: postCode,
+    bounds: "getFromConfig"
   }
   return Promise.resolve({
     results: [
       {
-        geometry: {
-          lat: 51.5,
-          lng: -0.12
-        }
+        geometry: randomLatLongInLondon()
       }
     ],
     payload
