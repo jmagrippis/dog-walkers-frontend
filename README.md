@@ -4,7 +4,9 @@ A simple frontend app for finding all available dog walkers in an area.
 
 To run the app `git clone` and `cd` into the repository and run `npm install`.
 
-`npm test` will, predictably, run the modest test suite and `npm start` will start the webpack dev server, allowing you to see the app in action at http://localhost:8080/
+`npm test` will, predictably, run the modest test suite and `npm start` will start the webpack dev server, allowing you to see the app in action at http://localhost:8080/. To actually see the map, you will need to create your own `constants/Keys.js`, with your Google Maps Javascript API key.
+
+You may also try `npm run build` to create a lightly optimized bundle.
 
 ## Notable libraries used
 
